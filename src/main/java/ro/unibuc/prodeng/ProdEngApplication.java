@@ -17,25 +17,38 @@ import jakarta.annotation.PostConstruct;
 @EnableMongoRepositories
 public class ProdEngApplication {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@Autowired
-	private TodoService todoService;
+    @Autowired
+    private TodoService todoService;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(ProdEngApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ProdEngApplication.class, args);
+    }
 
-	@PostConstruct
-	public void runAfterObjectCreated() {
-		if (userRepository.findByEmail("frodo@theshire.me").isEmpty()) {
-			CreateUserRequest userRequest = new CreateUserRequest("Frodo Baggins", "frodo@theshire.me");
-			userService.createUser(userRequest);
-			todoService.createTodo(new CreateTodoRequest("Take the ring to Mordor", "frodo@theshire.me"));
-		}
-	}
+    @PostConstruct
+    public void runAfterObjectCreated() {
+        if (userRepository.findByEmail("frodo@shire.me").isEmpty()) {
+
+            CreateUserRequest userRequest =
+                    new CreateUserRequest("Frodo Baggins", "frodo@shire.me");
+
+            userService.createUser(userRequest);
+
+            CreateTodoRequest todoRequest =
+                    new CreateTodoRequest(
+                            "Rings",
+                            "Take the ring to Mordor",
+                            "Deliver the ring safely to Mount Doom",
+                            "2026-06-01",
+                            "frodo@shire.me"
+                    );
+
+            todoService.createTodo(todoRequest);
+        }
+    }
 }

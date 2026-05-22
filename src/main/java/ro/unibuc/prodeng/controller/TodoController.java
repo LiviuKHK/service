@@ -16,7 +16,7 @@ import ro.unibuc.prodeng.exception.EntityNotFoundException;
 import ro.unibuc.prodeng.service.TodoService;
 
 @RestController
-@RequestMapping("/api/todos")
+@RequestMapping("/api/tasks")
 public class TodoController {
 
     @Autowired
